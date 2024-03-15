@@ -1,3 +1,3 @@
-# React + TypeScript + Vite
+# React + TypeScript + Vite + React-Query
 
-# Product-Detail-React-Querry-App!
+# Product-Detail-React-Query-App!
