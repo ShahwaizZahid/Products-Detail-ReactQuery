@@ -205,3 +205,17 @@ export const products: Product[] = [
     thumbnail: "https://cdn.dummyjson.com/product-images/15/thumbnail.jpg",
   },
 ];
+
+export const loadingVarient = {
+  initial: {
+    x: 100,
+    scale: 1,
+    opacity: 0,
+  },
+  animate: {
+    x: 0,
+    scale: 1,
+    opacity: 1,
+    transition: { duration: 0.5 },
+  },
+};

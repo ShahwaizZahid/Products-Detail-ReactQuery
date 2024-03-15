@@ -2,11 +2,11 @@ import { useForm } from "react-hook-form";
 import { Product } from "./Context";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { products } from "./Context";
-import { Link , useNavigate} from "react-router-dom";
-import {motion} from "framer-motion"
+import { Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const NewProduct = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const {
     register,
@@ -24,7 +24,7 @@ const NewProduct = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["product"] });
-      navigate("/")
+      navigate("/");
     },
   });
 
@@ -32,42 +32,50 @@ const NewProduct = () => {
     addNewProduct.mutate(data);
   };
 
-  if (addNewProduct.isPending){
-
-    return <motion.h1 className="text-3xl text-center"  initial={{
-      x: 100,
-      y: 100,
-      scale: 1,
-      rotate: 60,
-      opacity:0,
-    }}
-    animate={{
-      x: 0,
-      y: 0,
-      scale: 1,
-      rotate: 0,
-      opacity:1, 
-    }}
-    transition={{ duration: .5 }}>Adding...</motion.h1>;
-  }
-  if (addNewProduct.isError){
-
+  if (addNewProduct.isPending) {
     return (
-      <motion.h1 className="text-3xl text-center"  initial={{
-        x: 100,
-        y: 100,
-        scale: 1,
-        rotate: 60,
-        opacity:0,
-      }}
-      animate={{
-        x: 0,
-        y: 0,
-        scale: 1,
-        rotate: 0,
-        opacity:1, 
-      }}
-      transition={{ duration: .5 }}>
+      <motion.h1
+        className="text-3xl text-center"
+        initial={{
+          x: 100,
+          y: 100,
+          scale: 1,
+          rotate: 60,
+          opacity: 0,
+        }}
+        animate={{
+          x: 0,
+          y: 0,
+          scale: 1,
+          rotate: 0,
+          opacity: 1,
+        }}
+        transition={{ duration: 0.5 }}
+      >
+        Adding...
+      </motion.h1>
+    );
+  }
+  if (addNewProduct.isError) {
+    return (
+      <motion.h1
+        className="text-3xl text-center"
+        initial={{
+          x: 100,
+          y: 100,
+          scale: 1,
+          rotate: 60,
+          opacity: 0,
+        }}
+        animate={{
+          x: 0,
+          y: 0,
+          scale: 1,
+          rotate: 0,
+          opacity: 1,
+        }}
+        transition={{ duration: 0.5 }}
+      >
         Error: {addNewProduct.error.message}
       </motion.h1>
     );
@@ -75,47 +83,58 @@ const NewProduct = () => {
 
   return (
     <>
-      <motion.form onSubmit={handleSubmit(onSubmitForm)}
+      <motion.form
+        onSubmit={handleSubmit(onSubmitForm)}
+        transition={{ duration: 0.5 }}
+        exit={{ y: "-100vh", opacity: 0 }}
       >
-        <motion.button className="w-10 h-10 m-4" initial={{
+        <motion.button
+          className="w-10 h-10 m-4"
+          initial={{
             y: -700,
-            opacity:0,
+            opacity: 0,
           }}
           animate={{
             y: 0,
-            opacity:1, 
+            opacity: 1,
           }}
-          transition={{ duration: 1 }} >
+          transition={{ duration: 1 }}
+        >
           <Link to="/">
             {" "}
             <img src="left-arrow.svg" alt="not found back arrow" />
           </Link>{" "}
         </motion.button>
-        
-          <motion.h1 className="font-bold text-5xl my-6 text-center"
+
+        <motion.h1
+          className="font-bold text-5xl my-6 text-center"
           initial={{
             x: -700,
-            opacity:0,
-            scale:0,
+            opacity: 0,
+            scale: 0,
           }}
           animate={{
             x: 0,
-            opacity:1, 
-            scale:1,
+            opacity: 1,
+            scale: 1,
           }}
-          transition={{ duration: 1 }} 
-          >Create New Product</motion.h1>
-        <motion.div className="w-full  flex flex-col justify-center items-center px-3" initial={{
+          transition={{ duration: 1 }}
+        >
+          Create New Product
+        </motion.h1>
+        <motion.div
+          className="w-full  flex flex-col justify-center items-center px-3"
+          initial={{
             y: 700,
-            opacity:0,
+            opacity: 0,
           }}
           animate={{
             y: 0,
-            opacity:1, 
+            opacity: 1,
           }}
-          transition={{ duration: 1 }} >
-          <div className="lg:w-[60%] my-2 md:w-[75%] w-full flex-col bg-black py-2 px-4 rounded-lg" 
-          >
+          transition={{ duration: 1 }}
+        >
+          <div className="lg:w-[60%] my-2 md:w-[75%] w-full flex-col bg-black py-2 px-4 rounded-lg">
             <div className=" w-full flex md:flex-row flex-col justify-center item-center   py-2 ">
               <label
                 htmlFor="title"
