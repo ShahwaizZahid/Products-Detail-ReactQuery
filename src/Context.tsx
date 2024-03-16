@@ -206,9 +206,10 @@ export const products: Product[] = [
   },
 ];
 
+
 export const loadingVarient = {
   initial: {
-    x: 100,
+    x: -200,
     scale: 1,
     opacity: 0,
   },
@@ -219,3 +220,29 @@ export const loadingVarient = {
     transition: { duration: 0.5 },
   },
 };
+
+export const createNewVariants ={
+  initial: {
+    y: -200,
+    scale: 0,
+    opacity: 0,
+  },
+  animate: {
+    y: 0,
+    scale: 1,
+    opacity: 1,
+  },
+}
+
+
+export const cardVariants ={
+  initial: {
+    x: 800,
+    opacity: 0,
+  },
+  animate: {
+    x: 0,
+    opacity: 1,
+    transition: { duration: 0.5 },
+  },
+}

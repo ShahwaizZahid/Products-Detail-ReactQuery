@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { products } from "./Context";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 const NewProduct = () => {
   const navigate = useNavigate();
@@ -18,13 +19,14 @@ const NewProduct = () => {
     mutationKey: ["newProduct"],
     mutationFn: async (data: any) => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      const newId = products.length + 1;
+      const newId = 1;
       const newData = { ...data, id: newId };
-      return products.push(newData);
+      await axios.post('https://dummyjson.com/products/add', newData)
+      console.log("successfullyAdded")
+      alert("Successfully Added Product")
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["product"] });
-      navigate("/");
     },
   });
 
@@ -156,7 +158,7 @@ const NewProduct = () => {
           </div>
 
           <div className="lg:w-[60%] my-2 md:w-[75%] sm:w-[100%]  w-[100%] flex-col bg-black py-2 px-4 rounded-lg">
-            <div className=" w-full flex md:flex-row  sm:flex-col justify-center item-center   py-2 ">
+            <div className=" w-full flex md:flex-row flex-col  justify-center item-center   py-2 ">
               <label
                 htmlFor="price"
                 className="w-[30%] px-6  text-gray-300  items-center flex justify-start font-bold text-lg"
@@ -179,7 +181,7 @@ const NewProduct = () => {
           </div>
 
           <div className="lg:w-[60%] my-2 md:w-[75%] sm:w-[100%] w-[100%] flex-col bg-black py-2 px-4 rounded-lg">
-            <div className=" w-full flex md:flex-row  sm:flex-col justify-center item-center   py-2 ">
+            <div className=" w-full flex md:flex-row flex-col  justify-center item-center   py-2 ">
               <label
                 htmlFor="brand"
                 className="w-[30%] px-6  text-gray-300  items-center flex justify-start font-bold text-lg"
@@ -200,7 +202,7 @@ const NewProduct = () => {
           </div>
 
           <div className="lg:w-[60%] my-2 md:w-[75%] sm:w-[100%] w-[100%] flex-col bg-black py-2 px-4 rounded-lg">
-            <div className=" w-full flex md:flex-row  sm:flex-col justify-center item-center   py-2 ">
+            <div className=" w-full flex md:flex-row flex-col  justify-center item-center   py-2 ">
               <label
                 htmlFor="category"
                 className="w-[30%] px-6  text-gray-300  items-center flex justify-start font-bold text-lg"
@@ -221,7 +223,7 @@ const NewProduct = () => {
           </div>
 
           <div className="lg:w-[60%] my-2 md:w-[75%] sm:w-[100%] w-[100%] flex-col bg-black py-2 px-4 rounded-lg">
-            <div className=" w-full flex md:flex-row  sm:flex-col justify-center item-center   py-2 ">
+            <div className=" w-full flex md:flex-row flex-col  justify-center item-center   py-2 ">
               <label
                 htmlFor="thumbnail"
                 className="w-[30%] px-6  text-gray-300  items-center flex justify-start font-bold text-lg"
@@ -242,7 +244,7 @@ const NewProduct = () => {
           </div>
 
           <div className="lg:w-[60%] my-2 md:w-[75%] sm:w-[100%] w-[100%] flex-col bg-black py-2 px-4 rounded-lg">
-            <div className=" w-full flex md:flex-row  sm:flex-col justify-center item-center   py-2 ">
+            <div className=" w-full flex md:flex-row flex-col  justify-center item-center   py-2 ">
               <label
                 htmlFor="description"
                 className="w-[30%] px-6  text-gray-300  items-center flex justify-start font-bold text-lg"
@@ -263,7 +265,7 @@ const NewProduct = () => {
           </div>
 
           <div className="lg:w-[60%] md:w-[75%] sm:w-[100%]  w-[100%] flex-col bg-black py-2 px-4 rounded-lg">
-            <div className=" w-full flex md:flex-row sm:flex-col justify-center item-center   py-2 ">
+            <div className=" w-full flex md:flex-row flex-col  justify-center item-center   py-2 ">
               <label
                 htmlFor="discountPercentage"
                 className="w-[30%] xm:none px-6  text-gray-300  items-center flex justify-start font-bold text-lg"
@@ -286,7 +288,7 @@ const NewProduct = () => {
           </div>
 
           <div className="lg:w-[60%] my-2 md:w-[75%] sm:w-[100%]  w-[100%] flex-col bg-black py-2 px-4 rounded-lg">
-            <div className=" w-full flex md:flex-row sm:flex-col justify-center item-center   py-2 ">
+            <div className=" w-full flex md:flex-row flex-col  justify-center item-center   py-2 ">
               <label
                 htmlFor="rating"
                 className="w-[30%] xm:none px-6  text-gray-300  items-center flex justify-start font-bold text-lg"
@@ -307,7 +309,7 @@ const NewProduct = () => {
           </div>
 
           <div className="lg:w-[60%] my-2 md:w-[75%] sm:w-[100%]  w-[100%] flex-col bg-black py-2 px-4 rounded-lg">
-            <div className=" w-full flex md:flex-row sm:flex-col justify-center item-center   py-2 ">
+            <div className=" w-full flex md:flex-row flex-col  justify-center item-center   py-2 ">
               <label
                 htmlFor="stock"
                 className="w-[30%] xm:none px-6  text-gray-300  items-center flex justify-start font-bold text-lg"

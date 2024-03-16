@@ -4,13 +4,14 @@ import { products } from "./Context";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { loadingVarient } from "./Context";
-export default function ProductDetails() {
-  const params = useParams();
+import axios from "axios";
 
+export default function Product() {
+  const params = useParams();
   const fetchProduct = async () => {
-    if (params.productId) {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      return products[parseInt(params.productId)];
+    if (params.productId) { 
+      const res = await axios.get(`https://dummyjson.com/products/${params.productId}`);
+      return res.data;
     }
   };
 
@@ -47,25 +48,18 @@ export default function ProductDetails() {
 
   return (
     <>
-      <motion.div exit={{ y: "-100vh" }} transition={{ duration: 0.7 }}>
-        <motion.button
-          className="w-10 h-10 mt-4 ml-4"
-          initial={{
-            y: -700,
-            opacity: 0,
-          }}
-          animate={{
-            y: 0,
-            opacity: 1,
-          }}
-          transition={{ duration: 0.5 }}
-        >
+        <button
+          className="w-10 h-10 mt-4 ml-4">
           <Link to="/">
             {" "}
             <img src="/left-arrow.svg" alt="not found back arrow" />
           </Link>{" "}
-        </motion.button>
-        <div className="flex justify-center flex-col items-center">
+        </button>
+      <div className=" flex justify-center items-center flex-col">
+        <div>
+          
+        </div>
+        <div className="flex justify-center flex-col items-center sm:w-[90%] md:w-[60%] ">
           <motion.h1
             className="text-4xl py-6 font-bold"
             initial={{
@@ -99,15 +93,8 @@ export default function ProductDetails() {
           >
             <img
               className="w-[400px] h-[400px] mb-4 rounded-full overflow-hidden object-fill"
-              src={
-                data?.thumbnail ||
-                "https://cdn.pixabay.com/photo/2017/05/03/22/08/image-2282302_960_720.png"
-              }
-              alt={`${data?.title || "Product"} image not found`}
-              onError={(e) => {
-                e.currentTarget.src =
-                  "https://cdn.pixabay.com/photo/2017/05/03/22/08/image-2282302_960_720.png";
-              }}
+              src={ data?.thumbnail}
+              alt={`Product image not found`}
             />
 
             <div className="flex flex-col text-2xl py-12">
@@ -155,7 +142,7 @@ export default function ProductDetails() {
             </div>
           </motion.div>
         </div>
-      </motion.div>
+      </div>
     </>
   );
 }
