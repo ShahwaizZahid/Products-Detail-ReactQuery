@@ -224,16 +224,14 @@ export const loadingVarient = {
 export const createNewVariants ={
   initial: {
     y: -200,
-    scale: 0,
     opacity: 0,
   },
   animate: {
     y: 0,
-    scale: 1,
     opacity: 1,
+    transition:{duration:.5}
   },
 }
-
 
 export const cardVariants ={
   initial: {
