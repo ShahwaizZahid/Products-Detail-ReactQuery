@@ -2,13 +2,12 @@ import { useSearchParams, Link } from "react-router-dom";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { loadingVarient, createNewVariants , cardVariants} from "./Context";
-
+import { loadingVarient, createNewVariants, cardVariants } from "./Context";
+import Loading from "./Loading";
 const fetchCategory = async () => {
   const response = await axios.get("https://dummyjson.com/products/categories");
   return response.data;
 };
-
 
 export default function Products() {
   const [searchParams, setSearchParams] = useSearchParams({
@@ -58,7 +57,7 @@ export default function Products() {
         initial="initial"
         animate="animate"
       >
-        Loading.....
+        <Loading />
       </motion.div>
     );
   }
@@ -77,27 +76,27 @@ export default function Products() {
   }
 
   return (
-    <div >
+    <div>
       <div className="flex justify-end">
+        <motion.button
+          className="bg-black px-4 py-3 text-white rounded-xl font-bold mt-3 mx-3"
+          variants={createNewVariants}
+          initial="initial"
+          animate="animate"
+        >
+          <Link to="/newproduct">Create new product</Link>
+        </motion.button>
+      </div>
 
-      <motion.button
-        className="bg-black px-4 py-3 text-white rounded-xl font-bold mt-3 mx-3"
+      <motion.div
+        className="flex justify-center  items-center bg-black py-2 flex-col md:flex-row mt-10 rounded-full mx-4 px-4"
         variants={createNewVariants}
         initial="initial"
         animate="animate"
       >
-        <Link to="/newproduct">Create new product</Link>
-      </motion.button>
-      </div>
-
-      <motion.div className="flex justify-center  items-center bg-black py-2 flex-col md:flex-row mt-10 rounded-full mx-4 px-4" 
-      variants={createNewVariants}
-      initial="initial"
-      animate="animate"
-      >
         <div className="w-[80%] my-2 mx-5">
           <input
-          placeholder="Search here product"
+            placeholder="Search here product"
             className="border-2 border-black w-full py-4 px-5 outline-none rounded-2xl text-2xl font-semibold"
             type="text"
             onChange={(e) => {
@@ -119,15 +118,15 @@ export default function Products() {
               setSearchParams((prev) => {
                 prev.set("skip", `${0}`);
                 prev.delete("q");
-                prev.set("category", `${e.target.value}`); 
+                prev.set("category", `${e.target.value}`);
                 return prev;
               });
             }}
           >
-            <option  value="">Select Category</option>
+            <option value="">Select Category</option>
             {category.data &&
               category.data.map((pro: any) => (
-                <option   key={pro} value={pro}>
+                <option key={pro} value={pro}>
                   {pro}
                 </option>
               ))}
@@ -141,11 +140,13 @@ export default function Products() {
         </h2>
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {data?.products.map((product: any) => (
-            <motion.div  key={product.id} className="group relative "
-            variants={cardVariants}
-            initial="initial"
-            animate="animate"
-            whileHover={{y:-30 }}
+            <motion.div
+              key={product.id}
+              className="group relative "
+              variants={cardVariants}
+              initial="initial"
+              animate="animate"
+              whileHover={{ y: -30 }}
             >
               <div className="aspect-h-1 aspect-w-1 w-full h-[200px]  overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                 <img
@@ -178,7 +179,7 @@ export default function Products() {
         </div>
       </div>
       {data.products.length !== 0 && (
-        <div className="flex justify-center items-center " >
+        <div className="flex justify-center items-center ">
           <motion.button
             disabled={skip < limit}
             className={`h-fit w-fit rounded-lg py-3 px-5 my-3 mx-6 ${
@@ -187,7 +188,9 @@ export default function Products() {
             onClick={() => {
               handleMove(-limit);
             }}
-            initial={{x:-500 , scale:0}} animate={{x:skip < limit?-1000:0, scale:1}} whileHover={{y:-10 ,scale:1.2}}
+            initial={{ x: -500, scale: 0 }}
+            animate={{ x: skip < limit ? -1000 : 0, scale: 1 }}
+            whileHover={{ y: -10, scale: 1.2 }}
           >
             {" "}
             Previous
@@ -201,7 +204,8 @@ export default function Products() {
             onClick={() => {
               handleMove(limit);
             }}
-            initial={{x:500 , scale:0}} animate={  {  x:skip + limit >= data.total?1000:0 , scale:1}} 
+            initial={{ x: 500, scale: 0 }}
+            animate={{ x: skip + limit >= data.total ? 1000 : 0, scale: 1 }}
           >
             {" "}
             Next

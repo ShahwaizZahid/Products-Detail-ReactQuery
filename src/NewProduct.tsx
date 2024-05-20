@@ -1,13 +1,11 @@
 import { useForm } from "react-hook-form";
 import { Product } from "./Context";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { products } from "./Context";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "axios";
-
+import Loading from "./Loading";
 const NewProduct = () => {
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const {
     register,
@@ -21,9 +19,9 @@ const NewProduct = () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       const newId = 1;
       const newData = { ...data, id: newId };
-      await axios.post('https://dummyjson.com/products/add', newData)
-      console.log("successfullyAdded")
-      alert("Successfully Added Product")
+      await axios.post("https://dummyjson.com/products/add", newData);
+      console.log("successfullyAdded");
+      alert("Successfully Added Product");
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["product"] });
@@ -31,7 +29,7 @@ const NewProduct = () => {
   });
 
   const onSubmitForm = (data: Product) => {
-    addNewProduct.mutate(data);
+    addNewProduct.mutateAsync(data);
   };
 
   if (addNewProduct.isPending) {
@@ -54,7 +52,7 @@ const NewProduct = () => {
         }}
         transition={{ duration: 0.5 }}
       >
-        Adding...
+        <Loading />
       </motion.h1>
     );
   }

@@ -1,16 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { products } from "./Context";
+// import { Products } from "./Context";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { loadingVarient } from "./Context";
 import axios from "axios";
-
+import Loading from "./Loading";
 export default function Product() {
   const params = useParams();
   const fetchProduct = async () => {
-    if (params.productId) { 
-      const res = await axios.get(`https://dummyjson.com/products/${params.productId}`);
+    if (params.productId) {
+      const res = await axios.get(
+        `https://dummyjson.com/products/${params.productId}`
+      );
       return res.data;
     }
   };
@@ -28,7 +30,7 @@ export default function Product() {
         initial="initial"
         animate="animate"
       >
-        Loading.....
+        <Loading />
       </motion.div>
     );
   }
@@ -48,17 +50,14 @@ export default function Product() {
 
   return (
     <>
-        <button
-          className="w-10 h-10 mt-4 ml-4">
-          <Link to="/">
-            {" "}
-            <img src="/left-arrow.svg" alt="not found back arrow" />
-          </Link>{" "}
-        </button>
+      <button className="w-10 h-10 mt-4 ml-4">
+        <Link to="/">
+          {" "}
+          <img src="/left-arrow.svg" alt="not found back arrow" />
+        </Link>{" "}
+      </button>
       <div className=" flex justify-center items-center flex-col">
-        <div>
-          
-        </div>
+        <div></div>
         <div className="flex justify-center flex-col items-center sm:w-[90%] md:w-[60%] ">
           <motion.h1
             className="text-4xl py-6 font-bold"
@@ -93,7 +92,7 @@ export default function Product() {
           >
             <img
               className="w-[400px] h-[400px] mb-4 rounded-full overflow-hidden object-fill"
-              src={ data?.thumbnail}
+              src={data?.thumbnail}
               alt={`Product image not found`}
             />
 
