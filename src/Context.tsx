@@ -243,3 +243,18 @@ export const cardVariants = {
     transition: { duration: 0.5 },
   },
 };
+
+
+export const buttonVariants = {
+  initial: { opacity: 0, y: 10 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: "easeOut" },
+  },
+  hover: {
+    scale: 1.05,
+    boxShadow: "0px 12px 30px rgba(0,0,0,0.25)",
+  },
+  tap: { scale: 0.97 },
+};
